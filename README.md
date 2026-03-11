@@ -45,8 +45,10 @@ The goal is simple: give every user access to the kind of smart, data-driven ana
 
 ## Why BNex AI?
 
-Most crypto tools are either overwhelming with data or too simple to be useful. BNex AI bridges that gap. It combines live market intelligence with AI reasoning to give users something genuinely helpful — a tool that not only shows you what the market is doing, but helps you understand what to do about it, safely and responsibly.
+Most crypto tools are either overwhelming with data or too simple to be useful. BNex AI bridges that gap. It combines live market intelligence with AI reasoning to give users something genuinely helpful — a tool that not only shows you what the market is doing, but helps you understand what to do about it, safely and responsibly
 
+---
+##Live @ https://wisdomkings001.github.io/binance-project/
 
 ---
 
