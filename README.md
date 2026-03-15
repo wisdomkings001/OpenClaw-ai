@@ -273,12 +273,6 @@ BTC, ETH, BNB, SOL, XRP, ADA, DOGE, AVAX, MATIC, DOT, LINK, UNI, ATOM, LTC, BCH,
 
 ---
 
-## Running the App
+## Live Webpage 
 
-1. Download `index.html`
-2. Open it in any modern browser (Chrome recommended)
-3. Set your AI provider API key via the key icon
-4. Optionally deploy `binance-proxy-worker.js` to Cloudflare Workers and set the Worker URL for audit and live account features
-5. Start trading
-
-No build step. No npm. No server. Single file.
+https://wisdomkings001.github.io/binance-project/
