@@ -101,28 +101,8 @@ The AI Skills tab is your command center for generating professional trading sig
 
 ### 📸 Screenshot Reference
 ```
-[INSERT AI TAB SCREENSHOT HERE]
-┌─────────────────────────────────────────┐
-│  🤖 AI Skills - Market Analysis         │
-│  ┌─────────────────────────────────┐    │
-│  │  Select Coin: [BTC/USDT ▼]     │    │
-│  │  🤖 ANALYZE NOW (2:00 cooldown)│    │
-│  └─────────────────────────────────┘    │
-│                                         │
-│  📊 Recommendation: BUY                │
-│  🎯 Confidence: 82%                    │
-│  💰 Entry: $43,250                     │
-│  🛡️ Stop Loss: $42,100 (-2.6%)         │
-│  🎯 Take Profit: $45,800 (+5.9%)       │
-│  ⚖️ Risk/Reward: 1:2.3                 │
-└─────────────────────────────────────────┘
-```
+<img width="1366" height="768" alt="Screenshot (4)" src="https://github.com/user-attachments/assets/7257b0ea-c5ad-43af-b270-83ce770bf167" />
 
-**📸 Actual Screenshot Needed:**
-- Capture AI Skills tab with analysis results
-- Show recommendation panel with confidence score
-- Include entry/exit levels and risk/reward ratio
-- Highlight the "ANALYZE NOW" button
 
 ### 🔄 How It Works
 
@@ -192,28 +172,8 @@ Real-time market overview with live price updates, sorting capabilities, and det
 
 ### 📸 Screenshot Reference
 ```
-[INSERT MARKET TAB SCREENSHOT HERE]
-┌─────────────────────────────────────────┐
-│  📈 Market - Live Coin Grid             │
-│  ┌─────────┬─────────┬─────────┐        │
-│  │ Volume  │ Gainers │ Losers  │        │
-│  └─────────┴─────────┴─────────┘        │
-│                                         │
-│  ┌─────┬──────┬──────┬──────┐          │
-│  │ BTC │ $43.2│ +2.3% │ 📊   │          │
-│  │ ETH │ $2.1 │ -1.2% │ 📊   │          │
-│  │ BNB │ $315 │ +0.8% │ 📊   │          │
-│  └─────┴──────┴──────┴──────┘          │
-│                                         │
-│  🔍 [Search coins...]                  │
-└─────────────────────────────────────────┘
-```
+<img width="1366" height="768" alt="Screenshot (5)" src="https://github.com/user-attachments/assets/99adec78-8470-4bfd-b6db-76ce865be20c" />
 
-**📸 Actual Screenshot Needed:**
-- Capture Market tab with live coin grid
-- Show sorting options (Volume, Gainers, Losers)
-- Include search bar functionality
-- Display real-time price updates with green/red changes
 
 ### 🔄 Real-Time Features
 
@@ -228,25 +188,8 @@ Real-time market overview with live price updates, sorting capabilities, and det
 Click any coin card to open detailed analysis:
 
 ```
-[COIN DETAIL PANEL]
-┌─────────────────────────────────┐
-│  Bitcoin (BTC/USDT)             │
-│  $43,250.00 (+2.3%) 🟢          │
-│                                 │
-│  📊 TradingView Chart           │
-│  [Live price chart]             │
-│                                 │
-│  📈 Order Book Depth             │
-│  ████████████████████████       │
-│  $43,200 ████████████████████   │
-│                                 │
-│  📊 24H Stats:                  │
-│  High: $44,100  Low: $42,300    │
-│  Volume: $1.2B  Vol%: +15%      │
-│                                 │
-│  🎯 Actions:                    │
-│  [▲ LONG] [▼ SHORT] [🤖 ANALYZE] │
-└─────────────────────────────────┘
+<img width="1366" height="768" alt="Screenshot (6)" src="https://github.com/user-attachments/assets/ceff03f2-19f6-44f3-9cbd-40c25972b772" />
+
 ```
 
 ### 🎛️ Market Tab Functions
@@ -278,37 +221,8 @@ Conversational AI assistant for crypto education, market explanations, and tradi
 
 ### 📸 Screenshot Reference
 ```
-[INSERT BOT TAB SCREENSHOT HERE]
-┌─────────────────────────────────────────┐
-│  🤖 Bot - AI Crypto Assistant           │
-│                                         │
-│  ┌─────────────────────────────────┐    │
-│  │  Quick Prompts:                 │    │
-│  │  [BTC Analysis] [Best Momentum] │    │
-│  │  [Explain RSI] [Trading Risks] │    │
-│  │  [DeFi Guide] [Stop Losses]    │    │
-│  └─────────────────────────────────┘    │
-│                                         │
-│  ┌─────────────────────────────────┐    │
-│  │  💬 Chat History                │    │
-│  │  You: What's ETH doing?         │    │
-│  │  🤖 ETH is showing...          │    │
-│  │  You: Explain RSI               │    │
-│  │  🤖 RSI measures...             │    │
-│  └─────────────────────────────────┘    │
-│                                         │
-│  ┌─────────────────────────────────┐    │
-│  │  [Ask anything...]              │    │
-│  │  [History] [Clear]             │    │
-│  └─────────────────────────────────┘    │
-└─────────────────────────────────────────┘
-```
+<img width="1366" height="768" alt="Screenshot (7)" src="https://github.com/user-attachments/assets/7bf9c481-96dc-461e-840b-8bb9d3b161a8" />
 
-**📸 Actual Screenshot Needed:**
-- Capture Bot tab with chat interface
-- Show quick prompt buttons
-- Include conversation history
-- Display input area with History/Clear buttons
 
 ### 🎯 Educational Focus
 
@@ -355,36 +269,9 @@ Complete trading interface with paper trading practice, automated trading, and l
 
 ### 📸 Screenshot Reference
 ```
-[INSERT TRADES TAB SCREENSHOT HERE]
-┌─────────────────────────────────────────┐
-│  💹 Trades - Paper Trading Engine       │
-│                                         │
-│  ┌─────────────────────────────────┐    │
-│  │  Balance: $10,000.00           │    │
-│  │  Today P&L: +$125.50           │    │
-│  │  Win Rate: 68%                 │    │
-│  │  AI Learned: 24 🧠 [Memory]    │    │
-│  └─────────────────────────────────┘    │
-│                                         │
-│  🤖 AutoBot: [OFF] [Settings]         │
-│                                         │
-│  📊 Open Positions:                    │
-│  ┌─────┬──────┬──────┬──────┐          │
-│  │ BTC │ LONG │ +$45 │ 📊   │          │
-│  │ ETH │ SHORT│ -$12 │ 📊   │          │
-│  └─────┴──────┴──────┴──────┘          │
-│                                         │
-│  📈 Trade History (Page 1 of 3):       │
-│  [← Previous] [Page 1 of 3] [Next →]    │
-└─────────────────────────────────────────┘
-```
+<img width="1366" height="768" alt="Screenshot (11)" src="https://github.com/user-attachments/assets/d1e9a8f5-6aa8-4990-9434-577aa957fbc9" />
 
-**📸 Actual Screenshot Needed:**
-- Capture Trades tab with portfolio overview
-- Show balance, P&L, win rate statistics
-- Include AutoBot status and settings button
-- Display open positions with P&L
-- Show trade history with pagination
+
 
 ### 💰 Paper Trading Features
 
@@ -397,15 +284,8 @@ Complete trading interface with paper trading practice, automated trading, and l
 #### 📊 Position Management
 
 ```
-[POSITION CARD]
-┌─────────────────────────────────┐
-│  BTC/USDT - LONG                │
-│  Entry: $43,000  Current: $43,450│
-│  Size: $500  P&L: +$25 (+0.6%)  │
-│  SL: $42,500  TP: $44,000       │
-│                                 │
-│  [Close Now] [Modify SL/TP]      │
-└─────────────────────────────────┘
+<img width="1366" height="768" alt="Screenshot (9)" src="https://github.com/user-attachments/assets/e07cafa5-f59f-4058-8a4d-2d142b10e7fb" />
+
 ```
 
 #### 🤖 AutoBot Features
@@ -423,24 +303,8 @@ Complete trading interface with paper trading practice, automated trading, and l
 #### 🔗 Account Connection
 
 ```
-[BINANCE LIVE PANEL]
-┌─────────────────────────────────┐
-│  ⬡ Binance Live Trading         │
-│  ● Connect Account               │
-│                                 │
-│  📊 Account Summary:            │
-│  USDT Balance: 1,234.56         │
-│  BTC Balance: 0.0234            │
-│  Open Orders: 2                 │
-│  Account Type: SPOT              │
-│                                 │
-│  🎯 Quick Order:                │
-│  Symbol: [BTC/USDT ▼]           │
-│  Quantity: [0.001]              │
-│  Type: [MARKET ▼]               │
-│                                 │
-│  [▲ BUY] [▼ SELL]               │
-└─────────────────────────────────┘
+<img width="1366" height="768" alt="Screenshot (10)" src="https://github.com/user-attachments/assets/f37c92c5-955a-43bb-b750-a8e4637e3268" />
+
 ```
 
 #### ⚠️ Live Trading Safety
@@ -479,26 +343,11 @@ Complete trading interface with paper trading practice, automated trading, and l
 - **Performance Tracking**: Win rates by coin
 - **Risk Assessment**: Historical risk analysis
 
-#### 🎯 Memory Panel Features
+#### 🎯 AI Memory Panel Features
 
 ```
-[AI MEMORY PANEL]
-┌─────────────────────────────────┐
-│  🧠 AI Memory                   │
-│                                 │
-│  📊 Overall Stats:              │
-│  Total Trades: 45               │
-│  Win Rate: 68%                  │
-│  Wins: 31  Losses: 14           │
-│  Avg P&L: +$12.50               │
-│                                 │
-│  📈 Performance by Coin:        │
-│  BTC: 75% WR (12 trades)        │
-│  ETH: 60% WR (8 trades)         │
-│  SOL: 80% WR (5 trades)         │
-│                                 │
-│  [Clear Memory]                 │
-└─────────────────────────────────┘
+<img width="1366" height="768" alt="Screenshot (12)" src="https://github.com/user-attachments/assets/dd116bae-2ef7-43e4-a069-fcd04d0dc1f4" />
+
 ```
 
 ### 🎛️ Using the Trades Tab
@@ -538,41 +387,8 @@ Strategic investment planning tool for regular, systematic cryptocurrency purcha
 
 ### 📸 Screenshot Reference
 ```
-[INSERT DCA TAB SCREENSHOT HERE]
-┌─────────────────────────────────────────┐
-│  ⬡ DCA - Dollar Cost Averaging         │
-│                                         │
-│  ┌─────────────────────────────────┐    │
-│  │  📊 DCA Calculator              │    │
-│  │                                 │    │
-│  │  Coin: [Bitcoin (BTC) ▼]       │    │
-│  │  Amount: $50.00                 │    │
-│  │  Frequency: [Weekly ▼]          │    │
-│  │  Duration: 12 months           │    │
-│  │  Growth: 15% annually           │    │
-│  │                                 │    │
-│  │  [Calculate]                    │    │
-│  └─────────────────────────────────┘    │
-│                                         │
-│  📊 Projection Results:               │
-│  ┌─────────────────────────────────┐    │
-│  │  Total Invested: $2,600         │    │
-│  │  Final Value: $3,450            │    │
-│  │  ROI: +32.7%                    │    │
-│  │  Avg Buy Price: $42,150         │    │
-│  │  Total Coins: 0.0617 BTC       │    │
-│  └─────────────────────────────────┘    │
-│                                         │
-│  📈 Investment Timeline:              │
-│  [Bar chart showing growth]           │
-└─────────────────────────────────────────┘
-```
+<img width="1366" height="768" alt="Screenshot (13)" src="https://github.com/user-attachments/assets/e9377d42-5253-4d01-b09c-0ce12533b4d1" />
 
-**📸 Actual Screenshot Needed:**
-- Capture DCA tab with calculator interface
-- Show input fields (coin, amount, frequency, duration)
-- Include projection results panel
-- Display investment timeline chart
 
 ### 🎯 DCA Strategy Benefits
 
@@ -667,28 +483,9 @@ Calculate exact trades needed to achieve target portfolio allocations.
 
 ```
 [PORTFOLIO REBALANCER]
-┌─────────────────────────────────┐
-│  ⚖ Portfolio Rebalancer         │
-│                                 │
-│  Total Portfolio: $10,000        │
-│                                 │
-│  📊 Target Allocations:         │
-│  ┌─────────┬─────────┬─────────┐ │
-│  │ Coin    │ Target  │ Action  │ │
-│  ├─────────┼─────────┼─────────┤ │
-│  │ BTC     │ 40%     │ BUY $800│ │
-│  │ ETH     │ 30%     │ SELL $200│ │
-│  │ BNB     │ 20%     │ HOLD    │ │
-│  │ SOL     │ 10%     │ BUY $400│ │
-│  └─────────┴─────────┴─────────┘ │
-│                                 │
-│  [Calculate Rebalance]          │
-│                                 │
-│  🎯 Rebalance Actions:          │
-│  • BUY $800 BTC (0.0185 BTC)    │
-│  • SELL $200 ETH (0.095 ETH)    │
-│  • BUY $400 SOL (1.25 SOL)      │
-└─────────────────────────────────┘
+
+<img width="1366" height="768" alt="Screenshot (14)" src="https://github.com/user-attachments/assets/bc91f100-796f-4766-86cb-5ab0b924d3a8" />
+
 ```
 
 #### 📊 Rebalancing Process
