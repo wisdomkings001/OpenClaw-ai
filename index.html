@@ -854,12 +854,6 @@ body {
   color: var(--gold); 
 }
 
-#bot-memory-btn:hover { 
-  background: var(--bg3); 
-  border-color: var(--gold); 
-  color: var(--gold); 
-}
-
 /* ABOUT PAGE ASSISTANT */
 #about-ai-panel {
   background: var(--bg2);
@@ -2731,24 +2725,6 @@ input:checked + .toggle-slider::before { transform: translateX(18px); background
     </div>
   </div>
 
-  <!-- AI MEMORY PANEL -->
-  <div id="ai-memory-panel" style="position:absolute;top:0;right:0;width:300px;height:100%;background:#000;border-left:1px solid var(--border);display:none;flex-direction:column;z-index:10">
-    <div style="padding:12px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
-      <div style="font-weight:700;color:var(--gold)">🧠 AI Memory</div>
-      <button onclick="toggleAIMemoryPanel()" style="background:transparent;border:none;color:var(--text2);cursor:pointer;font-size:16px">✕</button>
-    </div>
-    <div style="padding:12px;overflow-y:auto;flex:1">
-      <div id="ai-memory-content">
-        <div style="font-size:11px;color:var(--text3);margin-bottom:12px">AI learning from past trade performance</div>
-        <div id="ai-memory-stats"></div>
-        <div id="ai-memory-list"></div>
-      </div>
-    </div>
-    <div style="padding:12px;border-top:1px solid var(--border)">
-      <button onclick="clearAIMemory()" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);padding:8px;border-radius:6px;cursor:pointer;font-size:11px">Clear Memory</button>
-    </div>
-  </div>
-
   <!-- TRADES TAB -->
   <div class="tab-panel" id="tab-trades">
     <div id="trades-panel">
@@ -2769,9 +2745,6 @@ input:checked + .toggle-slider::before { transform: translateX(18px); background
         <div class="tstat">
           <div class="tstat-label">AI Learned</div>
           <div class="tstat-val" id="ts-learned" style="color:var(--gold)">0</div>
-        </div>
-        <div class="tstat">
-          <button type="button" id="ts-memory-btn" onclick="toggleAIMemoryPanel()" style="background:var(--bg4);border:1px solid var(--border2);color:var(--text2);font-size:10px;padding:4px 8px;border-radius:6px;cursor:pointer;font-weight:700;margin-top:6px">🧠 Memory</button>
         </div>
       </div>
       <div id="trades-scroll">
@@ -3317,8 +3290,7 @@ input:checked + .toggle-slider::before { transform: translateX(18px); background
             </div>
             <div style="padding:12px 14px;font-size:12px;color:var(--text3);line-height:1.9">
               <strong style="color:var(--text)">What it does:</strong> Every time a paper trade closes (via stop loss, take profit, or manually), the outcome is stored against that coin's memory profile.<br><br>
-              <strong style="color:var(--text)">How it works:</strong> Win rate, average P&amp;L, total trades, and specific lessons ("2025-03-12: LONG trade WON $47.20 via SL/TP. Win rate now 68%.") are saved in your browser's local storage. The next time you run an AI analysis for that coin, this full historical record is injected into the AI prompt — so the model knows what has and hasn't worked for you before, and tailors its recommendation accordingly. The AI Skills tab shows your global win rate, total trades learned, coins tracked, and recent lessons in the Self-Improving Engine card.<br><br>
-              <strong style="color:var(--gold)">New: AI Memory Panel:</strong> Access the 🧠 Memory button in the Trades tab to view detailed statistics about your trading performance, including win rates by coin, average P&amp;L calculations, and historical trade outcomes. The AI uses this memory to provide smarter, data-driven recommendations based on your actual trading history.
+              <strong style="color:var(--text)">How it works:</strong> Win rate, average P&amp;L, total trades, and specific lessons ("2025-03-12: LONG trade WON $47.20 via SL/TP. Win rate now 68%.") are saved in your browser's local storage. The next time you run an AI analysis for that coin, this full historical record is injected into the AI prompt — so the model knows what has and hasn't worked for you before, and tailors its recommendation accordingly. The AI Skills tab shows your global win rate, total trades learned, coins tracked, and recent lessons in the Self-Improving Engine card.
             </div>
           </div>
 
@@ -4313,9 +4285,6 @@ function closePosition(pos, closePrice, pnl, reason) {
   balance += pnl >= 0 ? pos.size + pnl : pos.size - Math.abs(pnl);
   saveBalance();
   
-  // Update AI memory with trade outcome
-  updateAITradeOutcomes(pos, pnl);
-  
   const isWin = pnl >= 0;
   if (isWin) wins++; else losses++;
   localStorage.setItem(KEYS.wins, wins);
@@ -4456,36 +4425,9 @@ function renderTradeHistory() {
     if (countEl) countEl.textContent = '';
     return;
   }
-  
-  // Initialize pagination if not exists
-  if (!window.tradeHistoryPage) window.tradeHistoryPage = 0;
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(tradeHistory.length / itemsPerPage);
-  const startIndex = window.tradeHistoryPage * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, tradeHistory.length);
-  const pageTrades = tradeHistory.slice(startIndex, endIndex);
-  
   if (countEl) countEl.textContent = tradeHistory.length + ' trades';
-  
-  // Navigation controls
-  const navControls = `
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:8px;background:var(--bg2);border-radius:8px">
-      <button onclick="changeTradeHistoryPage(${window.tradeHistoryPage - 1})" 
-              ${window.tradeHistoryPage === 0 ? 'disabled' : ''} 
-              style="background:var(--bg4);border:1px solid var(--border2);color:var(--text2);padding:4px 8px;border-radius:4px;cursor:pointer;font-size:11px">
-        ← Previous
-      </button>
-      <span style="font-size:11px;color:var(--text3)">Page ${window.tradeHistoryPage + 1} of ${totalPages}</span>
-      <button onclick="changeTradeHistoryPage(${window.tradeHistoryPage + 1})" 
-              ${window.tradeHistoryPage >= totalPages - 1 ? 'disabled' : ''} 
-              style="background:var(--bg4);border:1px solid var(--border2);color:var(--text2);padding:4px 8px;border-radius:4px;cursor:pointer;font-size:11px">
-        Next →
-      </button>
-    </div>
-  `;
-  
-  container.innerHTML = navControls + pageTrades.map((t, i) => {
-    const sign    = t.pnl >= 0 ? '+' : '-';
+  container.innerHTML = tradeHistory.map((t, i) => {
+    const sign    = t.pnl >= 0 ? '+' : '';
     const coin    = COINS.find(c => c.symbol === t.symbol);
     const dur     = t.closeTime && t.openTime ? Math.round((t.closeTime - t.openTime) / 60000) : null;
     const durStr  = dur !== null ? (dur < 60 ? dur + 'm' : (dur/60).toFixed(1) + 'h') : '';
@@ -4507,14 +4449,6 @@ function renderTradeHistory() {
   }).join('');
 }
 
-function changeTradeHistoryPage(newPage) {
-  const totalPages = Math.ceil(tradeHistory.length / 10);
-  if (newPage >= 0 && newPage < totalPages) {
-    window.tradeHistoryPage = newPage;
-    renderTradeHistory();
-  }
-}
-
 function renderPnlHistory() {
   const container = document.getElementById('pnl-history-panel');
   const countEl   = document.getElementById('pnl-history-count');
@@ -4525,46 +4459,23 @@ function renderPnlHistory() {
     return;
   }
 
-  // Calculate total wins and losses separately for accurate cumulative P&L
+  // Cumulative P&L across full session
+  const cumPnl    = pnlHistory.reduce((s, e) => s + e.pnl, 0);
+  const cumSign   = cumPnl >= 0 ? '+' : '';
+  const cumColor  = cumPnl >= 0 ? 'var(--green)' : 'var(--red)';
   const totalWins = pnlHistory.filter(e => e.isWin).length;
-  const totalLosses = pnlHistory.filter(e => !e.isWin).length;
-  const totalWinAmount = pnlHistory.filter(e => e.isWin).reduce((sum, e) => sum + e.pnl, 0);
-  const totalLossAmount = pnlHistory.filter(e => !e.isWin).reduce((sum, e) => sum + e.pnl, 0);
-  
-  // Correct cumulative P&L calculation (wins + losses, where losses are negative)
-  const cumPnl = totalWinAmount + totalLossAmount;
-  const cumSign = cumPnl >= 0 ? '+' : '-';
-  const cumColor = cumPnl >= 0 ? 'var(--green)' : 'var(--red)';
-  const wr = pnlHistory.length > 0 ? ((totalWins / pnlHistory.length) * 100).toFixed(0) : '--';
+  const wr        = ((totalWins / pnlHistory.length) * 100).toFixed(0);
 
   if (countEl) countEl.textContent = pnlHistory.length + ' records';
 
-  // Initialize tab state if not exists
-  if (!window.pnlHistoryTab) window.pnlHistoryTab = 'summary';
-
-  const tabButtons = `
-    <div style="display:flex;border-bottom:1px solid var(--border);margin-bottom:16px">
-      <button onclick="switchPnlHistoryTab('summary')" 
-              id="pnl-tab-summary"
-              style="flex:1;padding:8px;background:${window.pnlHistoryTab === 'summary' ? 'var(--bg2)' : 'transparent'};border:1px solid ${window.pnlHistoryTab === 'summary' ? 'var(--border)' : 'transparent'};color:var(--text2);cursor:pointer;font-size:11px;text-align:center;border-bottom:2px solid ${window.pnlHistoryTab === 'summary' ? 'var(--gold)' : 'transparent'}">
-        Summary
-      </button>
-      <button onclick="switchPnlHistoryTab('analysis')" 
-              id="pnl-tab-analysis"
-              style="flex:1;padding:8px;background:${window.pnlHistoryTab === 'analysis' ? 'var(--bg2)' : 'transparent'};border:1px solid ${window.pnlHistoryTab === 'analysis' ? 'var(--border)' : 'transparent'};color:var(--text2);cursor:pointer;font-size:11px;text-align:center;border-bottom:2px solid ${window.pnlHistoryTab === 'analysis' ? 'var(--gold)' : 'transparent'}">
-        Analysis
-      </button>
-    </div>
-  `;
-
-  const summaryContent = `
+  container.innerHTML = `
     <div class="pnl-cumulative">
       <div>
         <div class="pnl-cum-label">Session Cumulative P&L</div>
         <div class="pnl-cum-val" style="color:${cumColor}">${cumSign}$${Math.abs(cumPnl).toFixed(2)}</div>
       </div>
       <div style="text-align:center">
-        <div class="pnl-cum-label">Total Trades</div>
+        <div class="pnl-cum-label">Trades</div>
         <div class="pnl-cum-val" style="color:var(--text)">${pnlHistory.length}</div>
       </div>
       <div style="text-align:right">
@@ -4572,35 +4483,19 @@ function renderPnlHistory() {
         <div class="pnl-cum-val" style="color:${parseInt(wr)>=50?'var(--green)':'var(--red)'}">${wr}%</div>
       </div>
     </div>
-  `;
-
-  const analysisContent = `
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;padding:12px;background:var(--bg2);border-radius:8px">
-      <div style="text-align:center">
-        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Wins</div>
-        <div style="font-size:14px;font-weight:700;color:var(--green)">${totalWins}</div>
-        <div style="font-size:9px;color:var(--text3)">+$${totalWinAmount.toFixed(2)}</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Losses</div>
-        <div style="font-size:14px;font-weight:700;color:var(--red)">${totalLosses}</div>
-        <div style="font-size:9px;color:var(--text3)">-$${Math.abs(totalLossAmount).toFixed(2)}</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Avg P&L</div>
-        <div style="font-size:14px;font-weight:700;color:${cumPnl >= 0 ? 'var(--green)' : 'var(--red)'}">${cumPnl >= 0 ? '+' : '-'}$${Math.abs(cumPnl / pnlHistory.length).toFixed(2)}</div>
-      </div>
-    </div>
-  `;
-
-  const content = window.pnlHistoryTab === 'summary' ? summaryContent : analysisContent;
-  
-  container.innerHTML = tabButtons + content;
-}
-
-function switchPnlHistoryTab(tab) {
-  window.pnlHistoryTab = tab;
-  renderPnlHistory();
+    ${pnlHistory.map((e, i) => {
+      const sign  = e.pnl >= 0 ? '+' : '';
+      const pct   = e.pct ? (e.pct >= 0 ? '+' : '') + e.pct.toFixed(2) + '%' : '';
+      const entry = e.entry ? fmt(e.entry, e.sym) : '—';
+      const exit  = e.exit  ? fmt(e.exit,  e.sym) : '—';
+      const calc  = `${entry} → ${exit} · $${e.size} · ${e.direction.toUpperCase()} ${pct ? '· ' + pct : ''} · ${e.reason}`;
+      return `<div class="pnl-hist-row">
+        <span class="pnl-hist-num">#${pnlHistory.length - i}</span>
+        <span class="pnl-hist-sym" style="color:${COINS.find(c=>c.symbol===e.sym)?.color||'#fff'}">${e.sym}</span>
+        <span class="pnl-hist-calc">${calc}<br><span style="color:var(--text3);font-size:9px">${new Date(e.closeTime).toLocaleString()}</span></span>
+        <span class="pnl-hist-result ${e.pnl>=0?'pos':'neg'}">${sign}$${Math.abs(e.pnl).toFixed(2)}</span>
+      </div>`;
+    }).join('')}`;
 }
 
 function updateDailyPnl(pnl) {
@@ -4639,13 +4534,10 @@ function learnFromTrade(sym, isWin, reason, pnl, direction) {
   const m = memory[sym];
   m.trades++;
   if (isWin) m.wins++; else m.losses++;
-  
-  // Fix: Calculate average P&L correctly (cumulative total divided by total trades)
-  const previousTotal = m.avgPnl * (m.trades - 1);
-  m.avgPnl = (previousTotal + pnl) / m.trades;
+  m.avgPnl = (m.avgPnl * (m.trades-1) + pnl) / m.trades;
   
   const winRate = (m.wins / m.trades * 100).toFixed(0);
-  const lesson = `${new Date().toLocaleDateString()}: ${direction} trade ${isWin?'WON':'LOST'} (${isWin?'+':'-'}$${Math.abs(pnl).toFixed(2)}) via ${reason}. Win rate now ${winRate}%.`;
+  const lesson = `${new Date().toLocaleDateString()}: ${direction} trade ${isWin?'WON':'LOST'} ($${pnl.toFixed(2)}) via ${reason}. Win rate now ${winRate}%.`;
   m.lessons.unshift(lesson);
   if (m.lessons.length > 5) m.lessons.pop();
   
@@ -5338,17 +5230,8 @@ function computeWeightedConfidence(techScore, derivScore, onChainScore, sentimen
 
   // Sum contributions: each active soft cat contributes (its agreement score * its share / 100)
   const softContribution = active.reduce((s, c) => s + _agree(c.score, rec) * equalShare / 100, 0);
-  const rawScore = Math.round(techAgree * techShare / 100 + softContribution);
+ 
 
-  // Cross-check penalty — only fires when soft data conflicts with technicals
-  let penalty = 0;
-  if (active.length > 0) {
-    const avgSoftDir = active.reduce((s, c) => s + c.score, 0) / active.length;
-    const conflict = (techScore > 20 && avgSoftDir < -20) || (techScore < -20 && avgSoftDir > 20);
-    penalty = conflict ? Math.min(12, Math.round(Math.abs(techScore - avgSoftDir) * 0.08)) : 0;
-  }
-
-  const final = Math.max(5, Math.min(97, rawScore - penalty));
 
   // Breakdown — only active categories shown; inactive categories hidden in display
   const breakdown = {
@@ -5947,7 +5830,6 @@ Return ONLY valid JSON:
 
   analysis.confidence              = confResult.score;
   analysis.confidenceBreakdown     = confResult.breakdown;
-  analysis.confidencePenalty       = confResult.penalty;
   analysis.confidenceActiveCount   = confResult.activeCount;
 
   displayAnalysis(sym, analysis);
@@ -6041,10 +5923,6 @@ function buildConfidenceBreakdown(a, mode) {
 
   const order = ['technical','derivatives','onChain','sentiment','fundamental'];
   const rows  = order.map(k => miniBar(bd[k])).join('');
-
-  const penaltyNote = penalty > 0
-    ? `<div style="font-size:9px;color:var(--red);margin-top:4px">⚠ −${penalty}pt conflict penalty (technicals vs soft data disagree)</div>`
-    : '';
 
   const srcNote = `<div style="font-size:9px;color:var(--text3);margin-top:4px;line-height:1.5">
     ${order.filter(k => bd[k]?.hasData).map(k =>
@@ -6494,120 +6372,6 @@ function toggleBotHistory() {
     return '<button type="button" onclick="viewBotHistorySession(' + i + ')" style="text-align:left;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-size:12px;cursor:pointer;transition:border-color .2s">' + label + '</button>';
   }).join('');
 }
-
-function toggleAIMemoryPanel() {
-  const panel = document.getElementById('ai-memory-panel');
-  if (!panel) return;
-  
-  if (panel.style.display === 'flex') {
-    panel.style.display = 'none';
-  } else {
-    panel.style.display = 'flex';
-    renderAIMemoryPanel();
-  }
-}
-
-function renderAIMemoryPanel() {
-  const statsEl = document.getElementById('ai-memory-stats');
-  const listEl = document.getElementById('ai-memory-list');
-  
-  if (!statsEl || !listEl) return;
-  
-  // Fix: Read from the correct memory object where trades are actually stored
-  const memoryKeys = Object.keys(memory).filter(key => memory[key] && memory[key].trades > 0);
-  
-  // Calculate overall stats from actual trade memory
-  let totalTrades = 0;
-  let totalWins = 0;
-  let totalLosses = 0;
-  let totalPnl = 0;
-  
-  const bySymbol = {};
-  
-  memoryKeys.forEach(symbol => {
-    const coinMemory = memory[symbol];
-    const wins = coinMemory.wins || 0;
-    const losses = coinMemory.losses || 0;
-    const trades = coinMemory.trades || 0;
-    const avgPnl = coinMemory.avgPnl || 0;
-    
-    totalTrades += trades;
-    totalWins += wins;
-    totalLosses += losses;
-    totalPnl += avgPnl * trades;
-    
-    bySymbol[symbol] = { 
-      total: trades, 
-      wins: wins, 
-      losses: losses,
-      avgPnl: avgPnl,
-      winRate: trades > 0 ? (wins / trades * 100).toFixed(1) : '0'
-    };
-  });
-  
-  const overallWinRate = totalTrades > 0 ? (totalWins / totalTrades * 100).toFixed(1) : '0';
-  const overallAvgPnl = totalTrades > 0 ? (totalPnl / totalTrades) : 0;
-  
-  // Render stats
-  statsEl.innerHTML = `
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
-      <div style="background:#000;padding:8px;border-radius:6px;text-align:center;border:1px solid var(--border)">
-        <div style="font-size:18px;font-weight:700;color:var(--gold)">${totalTrades}</div>
-        <div style="font-size:9px;color:var(--text3)">Total Trades</div>
-      </div>
-      <div style="background:#000;padding:8px;border-radius:6px;text-align:center;border:1px solid var(--border)">
-        <div style="font-size:18px;font-weight:700;color:${overallWinRate >= 60 ? 'var(--green)' : overallWinRate >= 40 ? 'var(--gold)' : 'var(--red)'}">${overallWinRate}%</div>
-        <div style="font-size:9px;color:var(--text3)">Win Rate</div>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px">
-      <div style="background:#000;padding:8px;border-radius:6px;text-align:center;border:1px solid var(--border)">
-        <div style="font-size:16px;font-weight:700;color:var(--green)">${totalWins}</div>
-        <div style="font-size:9px;color:var(--text3)">Wins</div>
-      </div>
-      <div style="background:#000;padding:8px;border-radius:6px;text-align:center;border:1px solid var(--border)">
-        <div style="font-size:16px;font-weight:700;color:var(--red)">${totalLosses}</div>
-        <div style="font-size:9px;color:var(--text3)">Losses</div>
-      </div>
-    </div>
-    <div style="background:#000;padding:8px;border-radius:6px;text-align:center;margin-bottom:16px;border:1px solid var(--border)">
-      <div style="font-size:14px;font-weight:700;color:${overallAvgPnl >= 0 ? 'var(--green)' : 'var(--red)'}">${overallAvgPnl >= 0 ? '+' : '-'}$${Math.abs(overallAvgPnl).toFixed(2)}</div>
-      <div style="font-size:9px;color:var(--text3)">Average P&L</div>
-    </div>
-  `;
-  
-  // Render by symbol
-  listEl.innerHTML = `
-    <div style="font-size:11px;font-weight:700;color:var(--text2);margin-bottom:8px">Performance by Coin</div>
-    ${Object.entries(bySymbol).map(([symbol, stats]) => {
-      return `
-        <div style="background:#000;padding:8px;border-radius:6px;margin-bottom:6px;border:1px solid var(--border)">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-            <span style="font-weight:700">${symbol}</span>
-            <span style="font-size:10px;color:${stats.winRate >= 60 ? 'var(--green)' : stats.winRate >= 40 ? 'var(--gold)' : 'var(--red)'}">${stats.winRate}% WR</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3)">
-            <span>${stats.wins}W / ${stats.losses}L</span>
-            <span>${stats.total} trades</span>
-          </div>
-          <div style="font-size:9px;color:var(--text3);margin-top:2px">
-            Avg: ${stats.avgPnl >= 0 ? '+' : '-'}$${Math.abs(stats.avgPnl).toFixed(2)}
-          </div>
-        </div>
-      `;
-    }).join('')}
-    ${memoryKeys.length === 0 ? '<div style="font-size:11px;color:var(--text3);text-align:center;padding:20px">No trade history yet. Start trading to build AI memory!</div>' : ''}
-  `;
-}
-
-function clearAIMemory() {
-  if (confirm('Clear all AI learning memory? This will reset the AI\'s knowledge of past trade performance.')) {
-    aiSignalMemory = [];
-    saveAIMemory();
-    renderAIMemoryPanel();
-    toast('AI memory cleared successfully', 'info');
-  }
-}
 function viewBotHistorySession(index) {
   const hist = getBotHistory();
   const entry = hist[index];
@@ -6655,38 +6419,21 @@ async function sendBotMessage(text) {
 
   const typingEl = appendMsg('ai', '...', true);
 
-  // Build market context with AI memory insights
+  // Build market context
   const marketSnap = COINS.slice(0,15).map(c => {
     const p = prices[c.symbol];
     return p ? `${c.symbol}: ${fmt(p.price,c.symbol)} (${(p.change>=0?'+':'')+p.change?.toFixed(2)}%)` : '';
   }).filter(Boolean).join(', ');
 
-  // Get AI memory insights for mentioned coin
-  let memoryInsights = "";
-  if (mentionedSym) {
-    const suggestion = suggestNextTrade(mentionedSym);
-    const risk = calculateTradeRisk(mentionedSym, suggestion.direction);
-    const memory = getAIMemory(mentionedSym, 30 * 24 * 60 * 60 * 1000);
-    
-    memoryInsights = `
-AI Memory for ${mentionedSym}:
-- Historical trades: ${memory.length}
-- Success rate: ${memory.length > 0 ? ((memory.filter(s => s.outcome === 1).length / memory.length * 100).toFixed(1)) : 'N/A'}%
-- Current suggestion: ${suggestion.direction.toUpperCase()} (${suggestion.confidence.toFixed(1)}% confidence)
-- Risk level: ${risk}
-- Reason: ${suggestion.reason}`;
-  }
-
-  const prompt = `You are OpenClaw AI, an expert cryptocurrency analyst and educator. You have access to live market data and self-learning memory from past trade performance.
+  const prompt = `You are OpenClaw AI, an expert cryptocurrency analyst and educator. You have access to live market data.
 
 Current Live Market Snapshot: ${marketSnap}
 Recent News: ${newsHeadlines.slice(0,3).join(' | ')}
 User's Paper Trading Balance: $${balance.toFixed(2)}
-${memoryInsights}
 
 User question: ${text}
 
-Provide a clear, expert, and helpful response. Be specific about prices when discussing live data. If discussing a specific coin, incorporate the AI memory insights to provide data-driven recommendations. Keep response concise but thorough (2-4 paragraphs max).`;
+Provide a clear, expert, and helpful response. Be specific about prices when discussing live data. Keep response concise but thorough (2-4 paragraphs max).`;
 
   try {
     const result = await callAI({
