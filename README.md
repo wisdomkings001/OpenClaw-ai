@@ -7,8 +7,6 @@
 ![Browser Native](https://img.shields.io/badge/Browser-Native-00D4FF?style=for-the-badge&logo=firefox&logoColor=white)
 ![AI Powered](https://img.shields.io/badge/AI-Powered-FF6B6B?style=for-the-badge&logo=openai&logoColor=white)
 
-**Built for the Binance OpenClaw AI Build Competition (March 4–18, 2026)**
-
 [🚀 Get Started](#-getting-started) • [📖 Features](#-features) • [🤖 AI Integration](#-ai-integration) • [💹 Trading](#-paper-trading--live-trading) • [🔧 Advanced Tools](#-advanced-tools)
 
 </div>
